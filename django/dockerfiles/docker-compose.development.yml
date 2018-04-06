@@ -1,0 +1,19 @@
+version: "2"
+
+services:
+  postgres:
+    image: postgres:9.6
+    container_name: ${PROJECT_NAME}-postgres
+    hostname: postgres.${POSTGRES_HOST}
+    env_file: .env
+    ports:
+      - "${POSTGRES_PORT}:5432"
+    restart: "always"
+
+  redis:
+    image: redis:alpine
+    container_name: ${PROJECT_NAME}-redis
+    command: redis-server
+    ports:
+      - "${REDIS_PORT}:6379"
+    restart: "always"

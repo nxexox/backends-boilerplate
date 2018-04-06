@@ -1,0 +1,29 @@
+# Byte-compiled files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Translations
+*.mo
+*.pot
+
+# Django stuff
+*.log
+*.env
+
+# Static
+/static/
+/assets/
+
+# Media (except default directories)
+/media/**
+!/media/**/
+!/media/**/default/*
+!/media/fixtures/**
+
+
+# Venv
+python3
+python2
+venv
+virtualenv

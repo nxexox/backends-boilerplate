@@ -1,0 +1,61 @@
+version: "2"
+
+services:
+  postgres:
+    image: postgres:alpine
+    container_name: ${PROJECT_NAME}-postgres
+    hostname: postgres.${BASE_DOMAIN}
+    environment:
+      - POSTGRES_DB
+      - POSTGRES_USER
+      - POSTGRES_PASSWORD
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    restart: always
+
+  redis:
+    image: redis:alpine
+    container_name: ${PROJECT_NAME}-redis
+    hostname: redis.${BASE_DOMAIN}
+    command: redis-server  # ADD PASSWORD
+    volumes:
+      - redis_data:/data
+    restart: always
+
+  api:
+    image: <REGISTORY_URL>
+    container_name: ${PROJECT_NAME}-backend
+    env_file: .env
+    command: gunicorn -c /opt/code/gunicorn.conf.py project.wsgi:application
+    depends_on:
+      - postgres
+      - redis
+    volumes:
+      - media:/opt/code/media
+      - static:/opt/code/static
+    restart: always
+
+  nginx:
+    image: <REGISTORY_URL>
+    env_file: .env
+    container_name: ${PROJECT_NAME}-nginx
+    entrypoint:
+      - /opt/bin/entrypoint.sh
+    command: nginx
+    depends_on:
+      - api
+    volumes:
+      - media:/usr/share/nginx/media
+      - static:/usr/share/nginx/static
+    ports:
+      - ${SERVER_PORT}:80
+    environment:
+      - SERVER_HOST=api
+      - SERVER_PORT=80
+    restart: always
+
+volumes:
+  media:
+  static:
+  redis_data:
+  postgres_data:

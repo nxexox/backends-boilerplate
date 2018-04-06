@@ -1,0 +1,38 @@
+# Byte-compiled files
+__pycache__/
+*.py[cod]
+*$py.class
+*.pyc
+
+# Translations
+*.mo
+*.pot
+.env
+
+# Django stuff
+*.log
+
+# Development files
+.dockerignore
+.gitignore
+.idea
+.git
+Dockerfile.development
+Dockerfile.production
+docker-compose.*
+Makefile
+package.json
+
+# Static
+/static/
+
+# Media (except default directories)
+/media/**
+!/media/**/
+!/media/**/default/*
+
+# Virtualenv files
+*/venv/
+*/venvs/
+*/python2/
+*/python3/

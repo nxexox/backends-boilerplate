@@ -1,0 +1,7 @@
+# Main Applications.
+Django==1.11.5
+Jinja2==2.10
+Pillow==5.0.0
+psycopg2==2.7.4
+django-redis==4.4.3
+django-jinja==2.2.2

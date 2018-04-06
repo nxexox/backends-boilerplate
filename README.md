@@ -1,2 +1,2 @@
-# backends-boilerplate
-Boilerplates for python projects/frameworks from docker images.
+# Boilerplates for python frameworks
+All instructions are in the appropriate folders.
