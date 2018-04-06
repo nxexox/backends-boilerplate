@@ -42,7 +42,7 @@ ADMINS = ()
 ENVIRONMENT = ENV_DICT.get('ENVIRONMENT', 'production')
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = ENV_DICT.get('DJANGO_SECRET_KEY', 'sfiima%09#_j@sq2i_zy+kpcwpj4r2eff1$((kd=&j3isu5cgr')
+SECRET_KEY = ENV_DICT.get('DJANGO_SECRET_KEY', '')
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = ENV_DICT.get('DJANGO_DEBUG', True)
@@ -247,7 +247,7 @@ LOGGING = {
         'file': {
             'level': 'INFO',
             'class': 'logging.FileHandler',
-            'filename':  os.path.join(BASE_DIR, 'debian/logs/django.log'),
+            'filename':  path_to_log_file,
             'formatter': 'verbose',
         },
         'console': {

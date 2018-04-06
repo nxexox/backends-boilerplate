@@ -1,16 +1,20 @@
 environment = development
 test_pattern = *
+code_folder = api
 
 install:
 	@make -s check
-	@ln -sfr configs/environments/$(environment).env backend/.env
-	cd backend && make install
+	@ln -sfr dockerfiles/docker-compose.$(environment).yml docker-compose.yml
+	@ln -sfr configs/environments/$(environment).env .env
+	docker-compose up -d
+	@ln -sfr configs/environments/$(environment).env $(code_folder)/.env
+	cd $(code_folder) && make install
 
 pip_install:
-	cd backend && make pip_install
+	cd $(code_folder) && make pip_install
 
 migrate:
-	cd backend && make migrate
+	cd $(code_folder) && make migrate
 
 build:
 	@make -s check
@@ -24,10 +28,10 @@ up:
 	docker-compose -f docker-compose.$(environment).yml up -d --build
 
 backend_shell:
-	docker-compose exec backend bash
+	docker-compose exec $(code_folder) bash
 
 test:
-	docker-compose exec backend python manage.py test --pattern="$(test_pattern)"
+	docker-compose exec $(code_folder) python manage.py test --pattern="$(test_pattern)"
 
 encrypt:
 	@openssl enc -aes-256-cbc -salt -e -k "${CRYPTO_SECRET_KEY}" -in configs/environments/$(environment).env -out configs/environments/$(environment).crp
