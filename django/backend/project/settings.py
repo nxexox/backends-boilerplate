@@ -55,7 +55,6 @@ DATA_UPLOAD_MAX_MEMORY_SIZE = ENV_DICT.get(
     'DJANGO_DATA_UPLOAD_MAX_MEMORY_SIZE', MAX_UPLOAD_FILE_SIZE + (1 * 1024 * 1024)
 )
 FILE_UPLOAD_MAX_MEMORY_SIZE = ENV_DICT.get('DJANGO_FILE_UPLOAD_MAX_MEMORY_SIZE', MAX_UPLOAD_FILE_SIZE)
-FILE_UPLOAD_PERMISSIONS = 0o665
 
 
 # Application definition
@@ -74,9 +73,9 @@ INSTALLED_APPS = [
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
-    'django.middleware.cache.UpdateCacheMiddleware',
+    'django.middleware.cache.UpdateCacheMiddleware',  # For auto full cache responses.
     'django.middleware.common.CommonMiddleware',
-    'django.middleware.cache.FetchFromCacheMiddleware',
+    'django.middleware.cache.FetchFromCacheMiddleware',  # For auto full cache responses.
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
@@ -107,16 +106,7 @@ TEMPLATES = [
         'APP_DIRS': False,
         'OPTIONS': {
             'match_extension': '.html',
-            'globals': {
-                'len': len,
-                'any': any,
-                'all': all,
-                'set': set,
-                'str': str,
-                'int': int,
-                'range': range,
-                'none': None,
-            },
+            'globals': {},
             'context_processors': [
                 'django.contrib.auth.context_processors.auth',
                 'django.template.context_processors.debug',
@@ -214,7 +204,7 @@ USE_TZ = True
 
 STATIC_URL = ENV_DICT.get('DJANGO_STATIC_URL', None)  # '/static/'
 STATIC_ROOT = ENV_DICT.get('DJANGO_STATIC_ROOT', os.path.join(BASE_DIR, 'static'))
-MEDIA_URL = ENV_DICT.get('DJANGO_MEDIA_URL', None)
+MEDIA_URL = ENV_DICT.get('DJANGO_MEDIA_URL', None)  # /media/
 MEDIA_ROOT = ENV_DICT.get('DJANGO_MEDIA_ROOT', os.path.join(BASE_DIR, 'media'))
 
 # STORAGE SETTINGS

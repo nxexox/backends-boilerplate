@@ -9,15 +9,18 @@ import traceback
 
 # Connections settings.
 bind = os.getenv('GUNICORN_SOCKET_BIND', '0.0.0.0:80')  # The socket to bind.
-backlog = 2048  # The number of pending connections.
-timeout = 30  # Time to close client connection.
-keepalive = 2  # he number of seconds to wait for the next request on a Keep-Alive HTTP connection.
+backlog = os.getenv('GUNICORN_BACKLOG', 2048)  # The number of pending connections.
+timeout = os.getenv('GUNICORN_TIMEOUT', 30)  # Time to close client connection.
+# The number of seconds to wait for the next request on a Keep-Alive HTTP connection.
+keepalive = os.getenv('GUNICORN_KEEPALIVE', 2)
 
 # Workers settings.
 # The number of worker processes that this server should keep alive for handling requests.
 workers = os.getenv('GUNICORN_WORKERS', 3)
-worker_class = 'sync'  # The type of workers to use.
-reload = True
+threads = os.getenv('GUNICORN_THREADS', 10)
+worker_class = os.getenv('GUNICORN_WORKER_CLASS', 'sync')  # The type of workers to use.
+max_requests = os.getenv('GUNICORN_MAX_REQUESTS', 1000)
+reload = os.getenv('GUNICORN_RELOAD', True)
 
 # Logger settings.
 errorlog = os.path.join(

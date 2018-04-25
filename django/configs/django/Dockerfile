@@ -21,9 +21,9 @@ RUN adduser -h /home/${username} -D -G wheel -u ${uid} ${username} && \
     chmod u+s /sbin/su-exec && \
     chmod +x /usr/local/bin/wait-for-it.sh /usr/local/bin/docker-entrypoint.sh
 
-RUN mkdir -p /opt/project/backend /opt/logs/
-COPY . /opt/project/backend
-WORKDIR /opt/project/backend
+RUN mkdir -p /opt/code /opt/logs/
+COPY . /opt/code
+WORKDIR /opt/code
 
 USER user
 EXPOSE 8000

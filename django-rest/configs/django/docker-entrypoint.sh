@@ -42,7 +42,7 @@ echo "Applying migrations"
 python manage.py migrate && python manage.py migrate --run-syncdb
 
 echo "Collecting static files"
-python manage.py collectstatic --no-input --clear --link
+python manage.py collectstatic --no-input --clear
 
 echo "Starting $@"
 exec $@

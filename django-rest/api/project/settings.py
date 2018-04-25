@@ -55,7 +55,6 @@ DATA_UPLOAD_MAX_MEMORY_SIZE = ENV_DICT.get(
     'DJANGO_DATA_UPLOAD_MAX_MEMORY_SIZE', MAX_UPLOAD_FILE_SIZE + (1 * 1024 * 1024)
 )
 FILE_UPLOAD_MAX_MEMORY_SIZE = ENV_DICT.get('DJANGO_FILE_UPLOAD_MAX_MEMORY_SIZE', MAX_UPLOAD_FILE_SIZE)
-FILE_UPLOAD_PERMISSIONS = 0o665
 
 
 # Application definition
@@ -104,6 +103,24 @@ TEMPLATES = [
 WSGI_APPLICATION = 'project.wsgi.application'
 
 
+# Static files (CSS, JavaScript, Images)
+# https://docs.djangoproject.com/en/1.10/howto/static-files/
+
+STATIC_URL = ENV_DICT.get('DJANGO_STATIC_URL', None)  # '/static/'
+STATIC_ROOT = ENV_DICT.get('DJANGO_STATIC_ROOT', os.path.join(BASE_DIR, 'static'))
+MEDIA_URL = ENV_DICT.get('DJANGO_MEDIA_URL', None)  # /media/
+MEDIA_ROOT = ENV_DICT.get('DJANGO_MEDIA_ROOT', os.path.join(BASE_DIR, 'media'))
+
+# STORAGE SETTINGS
+STATICFILES_STORAGE = 'django.contrib.staticfiles.storage.ManifestStaticFilesStorage'
+
+
+STATICFILES_FINDERS = (
+    'django.contrib.staticfiles.finders.FileSystemFinder',
+    'django.contrib.staticfiles.finders.AppDirectoriesFinder',
+)
+
+
 REST_FRAMEWORK = {
     'DEFAULT_RENDERER_CLASSES': [
         'rest_framework.renderers.JSONRenderer',
@@ -111,7 +128,7 @@ REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': [
         'rest_framework.authentication.SessionAuthentication',
     ],
-    'UPLOADED_FILES_USE_URL': '/media/',
+    'UPLOADED_FILES_USE_URL': MEDIA_URL if MEDIA_URL else '/media/',
     'PAGE_SIZE': 10,
     'COMPACT_JSON': True,
     'DATE_FORMAT': '%d.%m.%Y',
@@ -180,24 +197,6 @@ USE_I18N = True
 USE_L10N = False
 
 USE_TZ = True
-
-
-# Static files (CSS, JavaScript, Images)
-# https://docs.djangoproject.com/en/1.10/howto/static-files/
-
-STATIC_URL = ENV_DICT.get('DJANGO_STATIC_URL', None)  # '/static/'
-STATIC_ROOT = ENV_DICT.get('DJANGO_STATIC_ROOT', os.path.join(BASE_DIR, 'static'))
-MEDIA_URL = ENV_DICT.get('DJANGO_MEDIA_URL', None)
-MEDIA_ROOT = ENV_DICT.get('DJANGO_MEDIA_ROOT', os.path.join(BASE_DIR, 'media'))
-
-# STORAGE SETTINGS
-STATICFILES_STORAGE = 'django.contrib.staticfiles.storage.ManifestStaticFilesStorage'
-
-
-STATICFILES_FINDERS = (
-    'django.contrib.staticfiles.finders.FileSystemFinder',
-    'django.contrib.staticfiles.finders.AppDirectoriesFinder',
-)
 
 
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
