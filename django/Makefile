@@ -5,6 +5,7 @@ code_folder = backend
 install:
 	@make -s check
 	@ln -sfr dockerfiles/docker-compose.$(environment).yml docker-compose.yml
+	@make decrypt environment=$(environment)
 	@ln -sfr configs/environments/$(environment).env .env
 	docker-compose up -d
 	@ln -sfr configs/environments/$(environment).env $(code_folder)/.env
@@ -18,12 +19,14 @@ migrate:
 
 build:
 	@make -s check
+	@make decrypt environment=$(environment)
 	@ln -sfr configs/environments/$(environment).env .env
 	@ln -sfr dockerfiles/docker-compose.$(environment).yml docker-compose.$(environment).yml
 	docker-compose -f docker-compose.$(environment).yml build --pull
 
 up:
 	@make -s check
+	@make decrypt environment=$(environment)
 	@ln -sfr config/environments/$(environment).env .env
 	docker-compose -f docker-compose.$(environment).yml up -d --build
 
