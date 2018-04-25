@@ -8,7 +8,7 @@ import sys
 import traceback
 
 # Connections settings.
-bind = os.getenv('GUNICORN_SOCKET_BIND', '0.0.0.0:80')  # The socket to bind.
+bind = os.getenv('GUNICORN_SOCKET_BIND', '0.0.0.0:8000')  # The socket to bind.
 backlog = os.getenv('GUNICORN_BACKLOG', 2048)  # The number of pending connections.
 timeout = os.getenv('GUNICORN_TIMEOUT', 30)  # Time to close client connection.
 # The number of seconds to wait for the next request on a Keep-Alive HTTP connection.

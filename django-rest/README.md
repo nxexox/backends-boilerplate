@@ -16,3 +16,8 @@ $ make decrypt environment=stage
 ```bash
 $ make install
 ```
+** Внимание, make install заново расшифровывает env. 
+Потому перед make install, лучше настроить env и зашифровать. 
+Иначе они перетруться. **
+
+** В .env обязательно прописать `DJANGO_SECRET_KEY`. **
