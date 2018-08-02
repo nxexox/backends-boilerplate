@@ -1,0 +1,11 @@
+version: "2"
+
+services:
+  mongo:
+    image: bitnami/mongodb:latest
+    container_name: ${PROJECT_NAME}-mongo
+    hostname: mongo.${MONGO_HOST}
+    env_file: .env
+    ports:
+    - "${MONGO_PORT}:27017"
+    restart: "always"
