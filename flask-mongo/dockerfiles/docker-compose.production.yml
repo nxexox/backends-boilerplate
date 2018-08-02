@@ -9,8 +9,6 @@ services:
       - MONGODB_USERNAME=${MONGODB_USERNAME}
       - MONGODB_PASSWORD=${MONGODB_PASSWORD}
       - MONGODB_DATABASE=${MONGODB_DATABASE}
-    ports:
-    - "${MONGO_PORT}:27017"
     restart: "always"
 
   backend:
