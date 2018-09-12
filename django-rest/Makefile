@@ -27,7 +27,7 @@ build:
 up:
 	@make -s check
 	@make decrypt environment=$(environment)
-	@ln -sfr config/environments/$(environment).env .env
+	@ln -sfr configs/environments/$(environment).env .env
 	docker-compose -f docker-compose.$(environment).yml up -d --build
 
 backend_shell:
@@ -53,7 +53,7 @@ check:
 		exit 1;\
 	fi
 
-	@if [ "$(environment)" = "production" -a ! config/environments/production.env ]; then\
+	@if [ "$(environment)" = "production" -a ! configs/environments/production.env ]; then\
 		echo "File production.env doesn't exist";\
 		exit 1;\
 	fi
